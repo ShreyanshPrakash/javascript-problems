@@ -56,3 +56,4 @@ const logLabelRecursively = (data = []) => {
 const result = logLabelRecursively(SAMPLE_DATA);
 
 console.log(result);
+
