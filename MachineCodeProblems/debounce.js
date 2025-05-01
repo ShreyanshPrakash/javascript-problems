@@ -12,9 +12,9 @@ const debounce = (callback, delay) => {
   return returnMethod;
 };
 
-const callBackMethos = (message) => console.log(message);
+const callBackMethod = (message) => console.log(message);
 
-const debouncedMethod = debounce(callBackMethos, 500);
+const debouncedMethod = debounce(callBackMethod, 500);
 
 debouncedMethod("One");
 debouncedMethod("Two");
@@ -22,12 +22,12 @@ debouncedMethod("Three");
 
 setTimeout(() => {
   debouncedMethod("One");
-}, 600);
+}, 400);
 
 setTimeout(() => {
   debouncedMethod("Two");
-}, 1200);
+}, 500);
 
 setTimeout(() => {
   debouncedMethod("Three");
-}, 1800);
+}, 1000);
