@@ -24,6 +24,29 @@ function mapCustom(callback) {
   return finalArray;
 }
 
+
+
+function custom(callback){
+
+
+  const array = this;
+  const length = array.length;
+
+  const finalArray = [];
+
+
+  for(let i = 0; i < length; i++){
+    const result = callback(array[i], i);
+    finalArray.push(result);
+  }
+
+  return finalArray;
+
+
+}
+
+
+
 const sampleArray = [1, 2, 3, 4, 5];
 
 Array.prototype.map = mapCustom;
