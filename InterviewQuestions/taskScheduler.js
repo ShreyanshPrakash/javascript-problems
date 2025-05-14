@@ -17,6 +17,9 @@ class Taskscheduler {
   }
 
   addTask(task) {
+    // if all the tasks are synchronous, then u dont need scheduler
+    // Javascript itself will run all the task one by one
+    // If u have multiple tasks, and they will take some time to finish, then use promise
     return new Promise((resolve, reject) => {
       async function __taskRunner() {
         this.runningTasks += 1;
