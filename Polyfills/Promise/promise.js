@@ -44,3 +44,11 @@ const promise = new PromiseCustom((resolve, reject) => {
 // promise.resolve();
 // console.log("End");
 // promise.reject();
+
+
+
+
+
+const p1 = new Promise((resolve, reject) => {
+    
+});
