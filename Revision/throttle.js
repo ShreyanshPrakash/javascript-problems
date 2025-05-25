@@ -6,18 +6,16 @@ function throttle(callback, delay) {
       return;
     }
 
-    let context = this;
     shouldThrottle = true;
     setTimeout(() => {
       shouldThrottle = false;
     }, delay);
 
-    callback.call(context, ...args);
+    callback.call(this, ...args);
   }
 
   return returnMethod;
 }
-// first time it will always execute then waits for the second time
 
 
 const callBackMethod = (message) => console.log(message);
