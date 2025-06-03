@@ -18,3 +18,23 @@ function useCurrySum(...args) {
 
 const result = useCurrySum(10)(20)(2, 4)();
 console.log(result);
+
+
+
+/*
+  Better
+  The above one we cant re-use,
+  Below one we can reuse
+  Check : https://www.greatfrontend.com/questions/javascript/sum?format=javascript
+*/
+
+export default function sum(value) {
+  function returnMethod(arg) {
+    if (arg === undefined) {
+      return value;
+    }
+    return sum(value + arg);
+  }
+
+  return returnMethod;
+}
