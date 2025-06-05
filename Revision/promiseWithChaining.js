@@ -12,6 +12,8 @@ class MyPromise {
     this.handlers = [];
     this.promiseValue = null;
 
+    this.handlerExecutionIndex = 0;
+
     this.executor(this.resolve.bind(this), this.reject.bind(this));
     this.handleHandlers.bind(this);
   }
@@ -55,10 +57,12 @@ class MyPromise {
   */
 
   handleHandlers() {
-    let index = 0;
-    while (this.handlers.length) {
-      const { type, handler } = this.handlers[index];
-      this.handlers.shift();
+    while (this.handlerExecutionIndex <= this.handlers.length - 1) {
+      const { type, handler } = this.handlers[this.handlerExecutionIndex];
+      //   this.handlers.shift();
+      // array shift will every time shift all the elements in the array
+      // Hence not good. Better use a counter to track the handler to trigger
+      this.handlerExecutionIndex++;
 
       if (this.state !== type) {
         continue;
@@ -82,10 +86,10 @@ MyPromise.reject = (error) =>
   new MyPromise((reject) => reject(error)).promiseValue;
 
 const promise = new MyPromise((resolve, reject) => {
-  setTimeout(() => {
-      resolve("Success");
+//   setTimeout(() => {
+    resolve("Success");
     // reject("Reject");
-  }, 2 * 1000);
+//   }, 2 * 1000);
 });
 
 promise
@@ -96,14 +100,13 @@ promise
   .then((res) => console.log("2", res))
   .catch((error) => console.log("3", error))
   .then((res) => {
-    console.log(res)
-    return "last"
+    console.log(res);
+    return "last";
   });
 
 // const result = MyPromise.resolve(10);
 // console.log(result);
 
-
 setTimeout(() => {
-    promise.then((res) => console.log("Late 1", res));
-}, 4 * 1000)
+  promise.then((res) => console.log("Late 1", res));
+}, 4 * 1000);
