@@ -49,7 +49,10 @@ class MyPromise {
   }
 
   then(thenCallback) {
-    this.handlers.push({ type: "fullfilled", handler: thenCallback });
+    this.handlers.push({
+      type: PROMISE_STATE_MAP.FULLFILLED,
+      handler: thenCallback,
+    });
 
     if (this.state === PROMISE_STATE_MAP.FULLFILLED) {
       this.handleHandlers();
@@ -59,7 +62,10 @@ class MyPromise {
   }
 
   catch(catchCallback) {
-    this.handlers.push({ type: "rejected", handler: catchCallback });
+    this.handlers.push({
+      type: PROMISE_STATE_MAP.REJECTED,
+      handler: catchCallback,
+    });
 
     if (this.state === PROMISE_STATE_MAP.REJECTED) {
       this.handleHandlers();
@@ -106,8 +112,6 @@ MyPromise.resolve = (res) =>
 MyPromise.reject = (error) =>
   new MyPromise((reject) => reject(error)).promiseValue;
 
-
-
 /*
   Runners with examples, sync and async
 */
@@ -115,7 +119,7 @@ MyPromise.reject = (error) =>
 const promise = new MyPromise((resolve, reject) => {
   //   setTimeout(() => {
   resolve("Success");
-//   reject("Reject");
+  //   reject("Reject");
   //   }, 2 * 1000);
 });
 
