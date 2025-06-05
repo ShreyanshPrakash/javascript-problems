@@ -41,7 +41,13 @@ class Scheduler {
 
 class Task {
   constructor() {}
-
+  /*
+    Why promise
+    We need task manager for async parallel tasks executions
+    For sync task, we dont need the task manager
+    With promise, we can call .then or await
+    with other async triggers like timers, we dont have that control
+  */
   getTask(params) {
     return () =>
       new Promise((res) => setTimeout(() => {

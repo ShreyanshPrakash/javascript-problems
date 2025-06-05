@@ -6,6 +6,10 @@ const PROMISE_STATE_MAP = {
 
 class MyPromise {
   constructor(executor) {
+    /*
+      Anything you add to the this, will be available to the instance.
+      Better hide using #
+    */
     this.executor = executor;
     this.state = PROMISE_STATE_MAP.PENDING;
 
