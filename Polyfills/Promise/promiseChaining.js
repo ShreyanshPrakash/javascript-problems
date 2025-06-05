@@ -14,11 +14,11 @@ class MyPromise {
 
     this.handlerExecutionIndex = 0;
 
-    this.executor(this.resolve.bind(this), this.reject.bind(this));
+    this.executor(this.#resolve.bind(this), this.#reject.bind(this));
     this.handleHandlers.bind(this);
   }
 
-  resolve(res) {
+  #resolve(res) {
     /*
       Only run if the state is/ was still pending
       if already rejected, then dont trigger
@@ -33,7 +33,7 @@ class MyPromise {
     }
   }
 
-  reject(error) {
+  #reject(error) {
     /*
       Only run if the state is/ was still pending
       if already rejected, then dont trigger
