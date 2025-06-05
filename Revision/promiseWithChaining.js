@@ -74,6 +74,11 @@ class MyPromise {
     return this;
   }
 
+  finally(finallyCallback){
+    // maybe, there can be only one finally
+    // so keep it in other variable and call it only once all handlers are exhausted
+  }
+
   /*
     Utility Methods
   */
