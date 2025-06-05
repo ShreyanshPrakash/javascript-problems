@@ -14,11 +14,11 @@ class MyPromise {
 
     this.handlerExecutionIndex = 0;
 
-    this.executor(this.resolve.bind(this), this.reject.bind(this));
+    this.executor(this.#resolve.bind(this), this.#reject.bind(this));
     this.handleHandlers.bind(this);
   }
 
-  resolve(res) {
+  #resolve(res) {
     /*
       Only run if the state is/ was still pending
       if already rejected, then dont trigger
@@ -33,7 +33,7 @@ class MyPromise {
     }
   }
 
-  reject(error) {
+  #reject(error) {
     /*
       Only run if the state is/ was still pending
       if already rejected, then dont trigger
@@ -49,7 +49,10 @@ class MyPromise {
   }
 
   then(thenCallback) {
-    this.handlers.push({ type: "fullfilled", handler: thenCallback });
+    this.handlers.push({
+      type: PROMISE_STATE_MAP.FULLFILLED,
+      handler: thenCallback,
+    });
 
     if (this.state === PROMISE_STATE_MAP.FULLFILLED) {
       this.handleHandlers();
@@ -59,13 +62,21 @@ class MyPromise {
   }
 
   catch(catchCallback) {
-    this.handlers.push({ type: "rejected", handler: catchCallback });
+    this.handlers.push({
+      type: PROMISE_STATE_MAP.REJECTED,
+      handler: catchCallback,
+    });
 
     if (this.state === PROMISE_STATE_MAP.REJECTED) {
       this.handleHandlers();
     }
 
     return this;
+  }
+
+  finally(finallyCallback){
+    // maybe, there can be only one finally
+    // so keep it in other variable and call it only once all handlers are exhausted
   }
 
   /*
@@ -106,8 +117,6 @@ MyPromise.resolve = (res) =>
 MyPromise.reject = (error) =>
   new MyPromise((reject) => reject(error)).promiseValue;
 
-
-
 /*
   Runners with examples, sync and async
 */
@@ -115,7 +124,7 @@ MyPromise.reject = (error) =>
 const promise = new MyPromise((resolve, reject) => {
   //   setTimeout(() => {
   resolve("Success");
-//   reject("Reject");
+  //   reject("Reject");
   //   }, 2 * 1000);
 });
 
