@@ -10,9 +10,7 @@ class MyPromise {
     this.state = PROMISE_STATE_MAP.PENDING;
 
     this.handlers = [];
-
-    this.resolveValue = null;
-    this.rejectValue = null;
+    this.promiseValue = null;
 
     this.executor(this.resolve.bind(this), this.reject.bind(this));
     this.handleHandlers.bind(this);
@@ -20,14 +18,14 @@ class MyPromise {
 
   resolve(res) {
     this.state = PROMISE_STATE_MAP.FULLFILLED;
-    this.resolveValue = res;
+    this.promiseValue = res;
 
     this.handleHandlers();
   }
 
   reject(error) {
     this.state = PROMISE_STATE_MAP.REJECTED;
-    this.rejectValue = error;
+    this.promiseValue = error;
 
     this.handleHandlers();
   }
@@ -66,33 +64,27 @@ class MyPromise {
         continue;
       }
 
-      const promiseValue =
-        this.state === PROMISE_STATE_MAP.FULLFILLED
-          ? this.resolveValue
-          : this.rejectValue;
-
       try {
-        const value = handler(promiseValue);
+        const value = handler(this.promiseValue);
         this.state = PROMISE_STATE_MAP.FULLFILLED;
-        this.resolveValue = value;
+        this.promiseValue = value;
       } catch (error) {
         this.state = PROMISE_STATE_MAP.REJECTED;
-        this.rejectValue = error;
-      } finally {
+        this.promiseValue = error;
       }
     }
   }
 }
 
 MyPromise.resolve = (res) =>
-  new MyPromise((resolve) => resolve(res)).resolveValue;
+  new MyPromise((resolve) => resolve(res)).promiseValue;
 MyPromise.reject = (error) =>
-  new MyPromise((reject) => reject(error)).rejectValue;
+  new MyPromise((reject) => reject(error)).promiseValue;
 
 const promise = new MyPromise((resolve, reject) => {
   setTimeout(() => {
-    //   resolve("Success");
-    reject("Reject");
+      resolve("Success");
+    // reject("Reject");
   }, 2 * 1000);
 });
 
@@ -103,7 +95,15 @@ promise
   })
   .then((res) => console.log("2", res))
   .catch((error) => console.log("3", error))
-  .then((res) => console.log(res));
+  .then((res) => {
+    console.log(res)
+    return "last"
+  });
 
 // const result = MyPromise.resolve(10);
 // console.log(result);
+
+
+setTimeout(() => {
+    promise.then((res) => console.log("Late 1", res));
+}, 4 * 1000)
