@@ -19,17 +19,33 @@ class MyPromise {
   }
 
   resolve(res) {
-    this.state = PROMISE_STATE_MAP.FULLFILLED;
-    this.promiseValue = res;
+    /*
+      Only run if the state is/ was still pending
+      if already rejected, then dont trigger
+      if already resolved, still dont trigger
+      -> maybe throw or warn ?
+    */
+    if (this.state === PROMISE_STATE_MAP.PENDING) {
+      this.state = PROMISE_STATE_MAP.FULLFILLED;
+      this.promiseValue = res;
 
-    this.handleHandlers();
+      this.handleHandlers();
+    }
   }
 
   reject(error) {
-    this.state = PROMISE_STATE_MAP.REJECTED;
-    this.promiseValue = error;
+    /*
+      Only run if the state is/ was still pending
+      if already rejected, then dont trigger
+      if already resolved, still dont trigger
+      -> maybe throw or warn ?
+    */
+    if (this.state === PROMISE_STATE_MAP.PENDING) {
+      this.state = PROMISE_STATE_MAP.REJECTED;
+      this.promiseValue = error;
 
-    this.handleHandlers();
+      this.handleHandlers();
+    }
   }
 
   then(thenCallback) {
@@ -80,16 +96,27 @@ class MyPromise {
   }
 }
 
+/*
+  External Utility methods
+  Attach directly to the call so that they can be called as part of the MyPromise
+  -> MyPromise.all, MyPromise.allSettled, MyPromise.race etc
+*/
 MyPromise.resolve = (res) =>
   new MyPromise((resolve) => resolve(res)).promiseValue;
 MyPromise.reject = (error) =>
   new MyPromise((reject) => reject(error)).promiseValue;
 
+
+
+/*
+  Runners with examples, sync and async
+*/
+
 const promise = new MyPromise((resolve, reject) => {
-//   setTimeout(() => {
-    resolve("Success");
-    // reject("Reject");
-//   }, 2 * 1000);
+  //   setTimeout(() => {
+  resolve("Success");
+//   reject("Reject");
+  //   }, 2 * 1000);
 });
 
 promise
@@ -104,8 +131,8 @@ promise
     return "last";
   });
 
-// const result = MyPromise.resolve(10);
-// console.log(result);
+const result = MyPromise.resolve(10);
+console.log(result);
 
 setTimeout(() => {
   promise.then((res) => console.log("Late 1", res));
