@@ -24,6 +24,7 @@ class MyPromise {
       if already rejected, then dont trigger
       if already resolved, still dont trigger
       -> maybe throw or warn ?
+      [ToDo] : => Add the execution to queueMicroTask(() => {})
     */
     if (this.state === PROMISE_STATE_MAP.PENDING) {
       this.state = PROMISE_STATE_MAP.FULLFILLED;
@@ -39,6 +40,7 @@ class MyPromise {
       if already rejected, then dont trigger
       if already resolved, still dont trigger
       -> maybe throw or warn ?
+      [ToDo] : => Add the execution to queueMicroTask(() => {})
     */
     if (this.state === PROMISE_STATE_MAP.PENDING) {
       this.state = PROMISE_STATE_MAP.REJECTED;
@@ -83,6 +85,10 @@ class MyPromise {
     Utility Methods
   */
 
+    /*
+      If there are no catch handlers and there is an error,
+      throw new UncaughtPromiseError()
+    */
   handleHandlers() {
     while (this.handlerExecutionIndex <= this.handlers.length - 1) {
       const { type, handler } = this.handlers[this.handlerExecutionIndex];
@@ -105,17 +111,37 @@ class MyPromise {
       }
     }
   }
+
+  static all(promises){
+    // handle all promises
+    const promise = new MyPromise(() => {});
+    console.log(promise);
+  }
 }
 
 /*
   External Utility methods
   Attach directly to the call so that they can be called as part of the MyPromise
   -> MyPromise.all, MyPromise.allSettled, MyPromise.race etc
+  OR, add them as static methods...check above
 */
 MyPromise.resolve = (res) =>
   new MyPromise((resolve) => resolve(res)).promiseValue;
 MyPromise.reject = (error) =>
   new MyPromise((reject) => reject(error)).promiseValue;
+
+
+/*
+  UncaughtPromiseError
+*/
+
+class UncaughtPromiseError extends Error{
+  constructor(error){
+    super(error);
+
+    this.stack = `(in Promise) : ${error.stack}`;
+  }
+}
 
 /*
   Runners with examples, sync and async
