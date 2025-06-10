@@ -29,10 +29,12 @@ class LRUCache {
 }
 
 const capacity = 2;
-const lruChahe = new LRUCache(2);
+const lruChahe = new LRUCache(capacity);
 
 lruChahe.set(1, 1);
 lruChahe.set(2, 2);
+lruChahe.set(3, 3);
+lruChahe.set(4, 4);
 
 let result = lruChahe.get(1);
 console.log(result);
