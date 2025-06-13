@@ -65,6 +65,17 @@ class LinkedList {
     return nodeList;
   }
 
+  isEmpty() {
+    return this.head === null;
+  }
+
+  reset() {
+    this.head = null;
+    this.tail = null;
+
+    this.length = 0;
+  }
+
   /*
     Additional Functionalities
   */
