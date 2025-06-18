@@ -13,7 +13,7 @@ const recursiveSum = (n, sum = 0) => {
   if (n <= 0) {
     // if n value is 0, then the sum is 0
     // if n value is 1, then the sum is 1
-    // if n value is 2, then the sume is 3 (1 + 2) => we cant take this as base
+    // if n value is 2, then the sum is 3 (1 + 2) => we cant take this as base
     // cause we are dependent on previous value to derive this.
 
     // Pay attention, its coming out to be like fibonacci series pattern
