@@ -61,7 +61,9 @@ class BinaryTree {
     if (node.value === target) {
       return node;
     }
-
+    // Since this is binary tree
+    // before calling the method, u can check if the target value is less or greated than node.value
+    // based on that either call node.left or node.right
     let leftValue = this.dfs(node.left, target);
     // if the right value was found using node.left, then line 62 will return the node that matched
     // whatever it returns, that will be passed to leftValue variable
