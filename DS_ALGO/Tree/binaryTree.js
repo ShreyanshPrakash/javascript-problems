@@ -54,8 +54,7 @@ class BinaryTree {
     return list;
   }
 
-
-  dfs(node, target) {
+  dfsSearch(node, target) {
     if (!node) return;
 
     if (node.value === target) {
@@ -71,12 +70,13 @@ class BinaryTree {
     // if true, then we return the leftValue which stores the node that matched
     // this will then not run the dfs for node.right in this iteration
     // whatever, is returned in the leftValue is then carried the same way recursively all the way to the top
-    if(leftValue){ 
-        return leftValue;
+    if (leftValue) {
+      return leftValue;
     }
+    // before calling the recursive function, u can check if node.left or right exist
     let rightValue = this.dfs(node.right, target);
-    if(rightValue){
-        return rightValue;
+    if (rightValue) {
+      return rightValue;
     }
     // console.log(node.value, target);
     // after this, the call execution will return back to line no 38 or 39
@@ -88,7 +88,7 @@ class BinaryTree {
     // then move to the next code statement
 
     // this null is important so that it skips the if condition for right and leftvalue
-    return null
+    return null;
   }
 
   getLeastValueNode() {
@@ -110,10 +110,66 @@ class BinaryTree {
     return minNode;
   }
 
+  getLargestvalueNode() {
+    let iterateLeftTree = (node) => {
+      if (node.right) {
+        return iterateLeftTree(node.right);
+      } else {
+        return node; // whetevr i return from here, it will go to line no 64.
+        // no in this case, I am not doing anything with that value like in the case of fibonacci, or factorial
+        // here in line 64 (recursive call) i am again returning WIHTOUT ALTERING the return value from the recursive call
+        // hence in this case, whatever u will return from the base condition will just get passed thorough
+        // or , will get bubbled up to the first function call
+        // ALSO, in this case I am returning somthing in both the cases.
+        // if my base conditions meets or not....hence this is working
+      }
+    };
+
+    const minNode = iterateLeftTree(this.root);
+    return minNode;
+  }
+
+  deleteNodeByValue(value){
+    
+  }
+
+  bfs(target) {
+    if (this.isEmpty()) {
+      return null;
+    }
+
+    let queue = [];
+    queue.push(this.root);
+
+    let search = (queue, target) => {
+      if (queue.length === 0) {
+        return null;
+      }
+
+      const queueNode = queue.shift();
+      // console.log(queueNode.value);
+
+      if (queueNode.value === target) {
+        return queueNode;
+      }
+
+      if (queueNode.left) {
+        queue.push(queueNode.left);
+      }
+      if (queueNode.right) {
+        queue.push(queueNode.right);
+      }
+
+      return search(queue, target);
+    };
+
+    return search(queue, target);
+  }
+
   searchNode(value) {
     let search = (node, value) => {
       if (!node) return;
-        
+
       if (node.value === value) {
         return node;
       } else {
@@ -162,12 +218,17 @@ binaryTree.insert(new TreeNode(5));
 binaryTree.insert(new TreeNode(3));
 binaryTree.insert(new TreeNode(2));
 binaryTree.insert(new TreeNode(7));
+binaryTree.insert(new TreeNode(-1));
 
 // console.log(binaryTree.print());
 
 // console.log(binaryTree.dfs(new TreeNode(5), []));
-console.log(binaryTree.dfs(binaryTree.root, 10));
+// console.log(binaryTree.dfs(binaryTree.root, 10));
+// console.log(binaryTree.dfs(binaryTree.root, []));
 
 // console.log(binaryTree.getLeastValueNode());
+// console.log(binaryTree.getLargestvalueNode());
 
 // console.log(binaryTree.searchNode(2));
+
+// console.log(binaryTree.bfs(2));
