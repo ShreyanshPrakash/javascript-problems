@@ -61,7 +61,7 @@ Below is more readable and helpful to understand what is actually happening abov
 https://www.youtube.com/watch?v=bNvIQI2wAjk
 */
 
-var productExceptSelf = function (nums) {
+var productExceptSelfTest = function (nums) {
   const n = nums.length;
 
   const prefix = new Array(n).fill(1);
@@ -71,7 +71,7 @@ var productExceptSelf = function (nums) {
   // in this loop, we are doing left to right....so we keep looking to the left as we move
   // to get the product upto that point
   // Hence its called prefix
-  // basically, u are coputing prefix of array at every index (upto but except)
+  // basically, u are computing prefix of array at every index (upto but except)
   for (let i = 1; i < n; i++) {
     // starts from 1 as we comapre with an index before
     prefix[i] = prefix[i - 1] * nums[i - 1];
@@ -326,3 +326,13 @@ var productExceptSelf = function (nums) {
 
   return result;
 };
+
+
+
+
+/*
+  Code Runner
+*/
+
+const nums = [1,2,3,4];
+console.log(productExceptSelfTest(nums));

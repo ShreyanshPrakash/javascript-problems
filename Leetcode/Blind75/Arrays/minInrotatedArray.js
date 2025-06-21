@@ -29,6 +29,7 @@ CONCEPTS :
 /**
  * @param {number[]} nums
  * @return {number}
+ * Solution does not work for all cases
  */
 var findMin = function (nums) {
   let minValue = nums[0];
@@ -50,4 +51,56 @@ var findMin = function (nums) {
   }
 
   return minValue || 0;
+};
+
+var findMin = function (nums) {
+  let start = 0;
+  let end = nums.length - 1;
+
+  while (start <= end) {
+    const mid = Math.floor((end + start) / 2);
+
+    // this is the case required to exit out...
+    // else the while loop will never exit
+    // end value will keep on updating to mid in else case
+    // mid, end and start will all point to either start or end of array
+    // and get stuck
+    if (start === end) {
+      return nums[start];
+    }
+
+    if (nums[mid] >= nums[start] && nums[start] > nums[end]) {
+      start = mid + 1;
+    } else {
+      end = mid;
+    }
+  }
+
+  return -1;
+};
+
+/*
+  Same as above, I just took the exit while condition out
+   and updated the while condition
+*/
+
+var findMin = function (nums) {
+  let start = 0;
+  let end = nums.length - 1;
+
+  while (start < end) {
+    const mid = Math.floor((end + start) / 2);
+
+    if (nums[mid] >= nums[start] && nums[start] > nums[end]) {
+      start = mid + 1;
+    } else {
+      end = mid;
+    }
+  }
+
+  if (start === end) {
+    return nums[start];
+  }
+
+  return -1;
 };

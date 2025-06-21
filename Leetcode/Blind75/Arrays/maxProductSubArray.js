@@ -31,6 +31,7 @@ CONCEPTS :
 /**
  * @param {number[]} nums
  * @return {number}
+ * Wrong solution
  */
 var maxProduct = function (nums) {
   let start = 0;
@@ -74,6 +75,17 @@ CONCEPTS :
     else, it might be that the current index value itself is bigger than the product
     we need all to determine the max product
 - Among the above three category, find the max and min value and keep going
+
+
+The intuition is that we store the information about our previous maximum product, 
+and as we iterate through the array, we keep using our previous maximum to calculate 
+the new maximum product.
+The tricky part of this problem is that negative numbers exist in the input array. 
+This causes situations where the smallest previous product (a negative number) can become 
+the largest product if the next number in line is also a negative number.
+Since the minimum product may have a chance to become the maximum, we need to store 
+the information about the previous minimum as well and take it into account 
+when we are calculating our maximum product.
 */
 
 
@@ -83,8 +95,15 @@ var maxProduct = function(nums) {
 
     for (let n of nums) {
         let prod = curMaxPrd * n;
+        // all the items in side the max method are basically options..
+        // either the new prod calculate will be the new Max
+        // or say current num is -ve and currMin is also -ve, hence thier product might be max
+        // finally, the number itself can be bigger than both other available options
         curMaxPrd = Math.max(prod, curMinPrd * n, n);
         curMinPrd = Math.min(prod, curMinPrd * n, n);
+        // the only reason we are calculating the minPrd also is because a min -ve value
+        // can become the max value if the next value is also negative...
+        // hence we consider the minPrd when we determine the maxPrd
 
         res = Math.max(res, curMaxPrd);
     }
