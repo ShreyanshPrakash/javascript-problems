@@ -31,6 +31,7 @@ CONCEPTS :
 /**
  * @param {number[]} height
  * @return {number}
+ * Wrong solution....
  */
 var maxArea = function (height) {
   let maxArea = 0;
@@ -77,4 +78,43 @@ var maxArea = function (height) {
   }
 
   return maxArea;
+};
+
+
+
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+
+    let maxArea = 0;
+    let left = 0;
+    let right = height.length - 1;
+
+    // if left === right then distance would be 0
+    // hence area will be 0
+    while(left < right){
+        
+        let distance = right - left;
+        let minHeight = Math.min(height[left], height[right]);
+        let newArea = distance * minHeight;
+
+        // why calculating area first before the conditions ?
+        // u can do the same before the while loop itself as initial area
+        // considering the start and end of the array values
+        // else need to do it first before the next inf conditions
+        // else the left or right pointer would be moved and distance wont be right
+        maxArea = Math.max(maxArea, newArea);
+
+        if(height[left] < height[right]){
+            left++;
+        }else{
+            right--;
+        }
+    }
+
+    return maxArea;
+    
 };
