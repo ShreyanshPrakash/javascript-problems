@@ -24,6 +24,7 @@ function bindWithoutCall(thisObject, ...args){
     thisObject.funcToCall = callFunction;
 
     return function(...callArgs){
+      // we should merge both the args as we might bind the funciton partially
         const allArgs = [...args, ...callArgs];
         return thisObject.funcToCall(allArgs);
     }
