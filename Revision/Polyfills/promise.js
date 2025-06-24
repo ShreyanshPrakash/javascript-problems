@@ -69,6 +69,9 @@ class MyPromise {
       const catchHandler = (value) => {
         if (!rejectionHandler) {
           return reject(value);
+          // why return reject() ?
+          // if mainly reject and then return
+          // we dont wan the further execution of the function
         }
 
         try {
