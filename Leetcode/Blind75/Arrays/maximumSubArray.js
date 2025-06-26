@@ -165,6 +165,7 @@ var maxSubArray = function (nums) {
     let sum = nums[0];
 
     for(let i = 1; i < len; i++){
+        // Max sum upto that index...not sum of all elements upto that index
         sum = Math.max(nums[i], sum + nums[i]);
         maxSum = Math.max(maxSum, sum);
     }

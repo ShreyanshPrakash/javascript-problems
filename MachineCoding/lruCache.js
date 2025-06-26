@@ -24,7 +24,7 @@ class LRUCache {
   /*
     API methods
   */
-
+  // take key and value and name the method as put
   add(value) {
     const node = new Node(value);
     if (this.isEmpty()) {
