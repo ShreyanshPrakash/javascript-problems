@@ -17,7 +17,9 @@ const backTrackFunction = (list) => {
     // Consider this i on the solution
     solutions.push(list[i]); // This is where u picked
     backTrack(i + 1);
-    solutions.pop(); // Here u r again rmeoving i from the solution
+    solutions.pop(); // Here u r again removing i from the solution
+    // why pop ? as I already selected/ picked it
+    // so now, solutions array will have list[i] in it
   };
 
   backTrack(0);
