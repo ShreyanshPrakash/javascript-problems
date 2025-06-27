@@ -48,7 +48,7 @@ var climbStairs = function (n) {
   
   However many ways it took me to reach step 3, that many ways I can reach step 5 also
   Same with step 4....however many ways it took me to reach step 4, that many ways i can reach step 5 also
-  why ? Beacause from both step 3 and 4...step 5 is accessible...
+  why ? Beacause from both step 3 and 4...step 5 is accessible... (taking 1 step or 2 step at a time)
   Hence to get the total no of ways to reach the step 5....I will add wasy to reach 3 and wasy to reach 4
 */
 
@@ -77,7 +77,7 @@ var climbStairs = function (n) {
   // [0, 1, 2, 3, 0, 0, 0, .... n] => [1, 1, 2, 3, 0, 0, 0, ... n]
   // for 0th step...we have 0 ways to get there
   // for 1st step...we have 1 way to get there.....and so on..
-  for (let i = 3; i < n; i++) {
+  for (let i = 3; i < n; i++) { // why < n
     cur = prev1 + prev2;
     prev2 = prev1;
     prev1 = cur;

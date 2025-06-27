@@ -24,6 +24,15 @@ var lengthOfLongestSubstring = function (s) {
       // Given "dvdf", since the last time d was at i = 0
       // start will shift to 0 + 1, as 0 would be saved in the map
       start = Math.max(start, store.get(char) + 1);
+      // Also, we might find multiple duplicated of multiple characters
+      // eg : abba
+      // hence it might be the case that u got the duplicate b...
+      // so u shifted start to new value
+      // now u got duplicate a... the last appearance of a was 0 which is less than start now
+      // we cannot go back to that value....
+      // Hence, its important to do the Math.max of start and the prpevious appearence + 1
+
+
     }
     store.set(char, i);
     // + 1 as I added a new character

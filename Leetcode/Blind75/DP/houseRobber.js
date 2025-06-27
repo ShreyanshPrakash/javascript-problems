@@ -28,7 +28,7 @@ CONCEPTS :
  * @param {number[]} nums
  * @return {number}
  */
-function rob(nums) {
+function rob2(nums) {
     let prev = 0, curr = 0;
     for (let num of nums) {
         // [prev, curr] = [curr, Math.max(curr, prev + num)];
@@ -46,3 +46,28 @@ function rob(nums) {
     }
     return curr;
 }
+
+
+
+function rob(nums) {
+
+    if(nums.length === 1){
+        return nums[0];
+    }
+
+    let result = new Array(nums.length).fill(0);
+    result[0] = nums[0];
+    result[1] = Math.max(nums[0], nums[1]);
+
+    for(let i = 2; i < nums.length; i++){
+        // upto ith index, what is the max robber can rob
+        result[i] = Math.max(result[i - 1], nums[i] + result[i - 2]);
+    }
+
+    console.log(result);
+
+    return result[nums.length - 1];
+}
+
+const nums = [2,1,1,2];
+console.log(rob(nums));
