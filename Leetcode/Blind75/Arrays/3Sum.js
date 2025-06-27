@@ -25,6 +25,7 @@ CONCEPTS :
 /**
  * @param {number[]} nums
  * @return {number[][]}
+ * wrong solution
  */
 var threeSum = function (nums) {
   let res = [];
@@ -138,4 +139,60 @@ function threeSum(nums) {
 	}
 
 	return results
+};
+
+
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ * Better
+ */
+var threeSum = function(nums) {
+
+    let res = [];
+    nums.sort((a,b) => a - b); // sort so that u can use two pointers reliably
+
+
+    for(let i = 0; i < nums.length; i++){
+		// if there is a duplicate, then skip that
+        if( i > 0 && nums[i] === nums[i - 1]){
+            continue;
+        }
+
+
+        let j = i + 1; // left pointer
+        let k = nums.length - 1; // right pointer
+
+
+        while(j < k){
+
+            let total = nums[i] + nums[j] + nums[k];
+
+            if(total > 0){
+                k--;
+            }else if(total < 0){
+                j++;
+            }else{
+                res.push([nums[i], nums[j], nums[k]]);
+                j++; // Must incrmenet j
+
+				// if there is duplicate, then skip..
+				// j will always be 1 step ahead of i...
+				// even though u have code to skip duplicate for i...
+				// that will be till ith value
+				// here I can iterate over till all duplicates are skipped
+                while(nums[j] === nums[j - 1] && j < k){
+                    j++;
+                }
+
+            }
+
+
+        }
+
+
+    }
+
+    return res;
 };
