@@ -57,7 +57,7 @@ class MyPromise {
           // such that when the then is executed for that promise,
           // it will call this resolve and reject
           if (result instanceof MyPromise) {
-            result.then(resolve, reject);
+            result.then(resolve, reject); // try catch
           } else {
             return resolve(result);
           }
