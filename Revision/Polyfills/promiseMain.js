@@ -44,7 +44,10 @@ class MyPromise {
   }
 
   then(resolutionHandler, rejectionHandler) {
+    // returning a new promise as that will help in the chaning
     return new MyPromise((resolve, reject) => {
+      // the 'value' params will be this.params
+      // this will be inserted when we iterate over the handlers and call them
       const thenHandler = (value) => {
         if (!resolutionHandler) {
           return resolve(value);

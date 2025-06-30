@@ -75,6 +75,7 @@ class LRUCache {
     this.#map.delete(lru.value);
     this.#tail = this.#tail.prev;
     this.#tail.next = null;
+    lru.prev = null;
     this.size--;
   }
 
