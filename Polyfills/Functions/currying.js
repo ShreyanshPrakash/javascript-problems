@@ -38,17 +38,3 @@ export default function sum(value) {
 
   return returnMethod;
 }
-
-
-
-/*
-
-
-function addTwo(a, b) {
-  return a + b;
-}
-const curriedAddTwo = curry(addTwo);
-curriedAddTwo(3)(4); // 7
-curriedAddTwo(3, 4); // 7
-
-*/
