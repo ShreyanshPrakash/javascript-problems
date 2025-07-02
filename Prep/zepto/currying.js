@@ -25,5 +25,18 @@ function curry(fn) {
   };
 }
 
+/*
+
+
+function addTwo(a, b) {
+  return a + b;
+}
+const curriedAddTwo = curry(addTwo);
+curriedAddTwo(3)(4); // 7
+curriedAddTwo(3, 4); // 7
+
+*/
+
+
 const result = curry(10)(20)();
 console.log(result);
