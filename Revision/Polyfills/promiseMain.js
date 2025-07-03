@@ -21,6 +21,13 @@ class MyPromise {
   }
 
   #resolve(params) {
+    // why queueMicroTask before the if statement.
+    // Ideally we should check if its pending then only create a queue task right ?
+    // else when there is non pending tasks also, an empty queue task will be created
+    // ANS : if u put the if statement before the queueMicroTaks, then even if it passes the condition
+    // the changes wont be applied immediately like update status as it will be in the micro queue
+    // hence if user has added other sync code or have called resolve or reject twice,
+    // the reoslve and reject will get executed even though resolve was called before
     queueMicrotask(() => {
       if (this.isPending()) {
         this.status = MY_PROMISE_STATE.FULLFILLED;
