@@ -109,7 +109,7 @@ class MyPromise {
   }
 
   catch(rejectionHandler) {
-    this.then(null, rejectionHandler);
+    return this.then(null, rejectionHandler);
   }
 
   /*
@@ -148,4 +148,5 @@ promise
     throw "Value";
   })
   .then((res) => console.log(res))
-  .catch((error) => console.log("Error : ", error));
+  .catch((error) => console.log("Error : ", error))
+  .then((res) => console.log(res));
