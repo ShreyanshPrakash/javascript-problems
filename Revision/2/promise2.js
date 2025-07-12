@@ -132,19 +132,19 @@ const promise2 = new Promise((resolve, reject) => {
   }, 1 * 1000);
 });
 
-promise
-  .then((res) => console.log("Success : ", res))
-  .then((res) => {
-    console.log(res);
-    // return new MyCustomPromise2((resolve, reject) => {
-    //     reject(new Error("Error Here"));
-    // });
-    // return new Error("Error Here");
-    dsa;
-    return 20;
-  })
-  .then((res) => console.log("Success 2: ", res))
-  .catch((error) => console.log("Error : ", error));
+// promise
+//   .then((res) => console.log("Success : ", res))
+//   .then((res) => {
+//     console.log(res);
+//     // return new MyCustomPromise2((resolve, reject) => {
+//     //     reject(new Error("Error Here"));
+//     // });
+//     // return new Error("Error Here");
+//     dsa;
+//     return 20;
+//   })
+//   .then((res) => console.log("Success 2: ", res))
+//   .catch((error) => console.log("Error : ", error));
 
 setTimeout(() => {
   promise
